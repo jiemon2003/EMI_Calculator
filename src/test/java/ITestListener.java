@@ -1,6 +1,5 @@
 import org.testng.ITestContext;
 import org.testng.ITestResult;
-
 import java.io.IOException;
 
 public class ITestListener  implements org.testng.ITestListener {
