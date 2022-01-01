@@ -10,7 +10,7 @@ public class GetScreenshot {
     public static String capture(WebDriver driver, String screenShotName) throws IOException {
         TakesScreenshot ts = (TakesScreenshot)driver;
         File source = ts.getScreenshotAs(OutputType.FILE);
-        String dest = System.getProperty("user.dir") + "\\screenshots\\" + screenShotName + ".png";
+        String dest = System.getProperty("user.dir") + "\\Failed_Screenshots\\" + screenShotName + ".png";
         File destination = new File(dest);
         FileUtils.copyFile(source, destination);
 

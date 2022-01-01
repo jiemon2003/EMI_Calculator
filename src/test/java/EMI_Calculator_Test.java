@@ -18,10 +18,12 @@ import java.util.concurrent.TimeUnit;
 
 public class EMI_Calculator_Test extends ExtentReport {
 
+    //Global
     static AppiumDriver<MobileElement> driver;
 
     @BeforeTest
     public void Navigate_to_the_EMI_Calculator_screen() throws MalformedURLException {
+
         DesiredCapabilities dc = new DesiredCapabilities();
         dc.setCapability("platformName", "Android");
         dc.setCapability("deviceName", "Redmi Note_7");
@@ -40,15 +42,13 @@ public class EMI_Calculator_Test extends ExtentReport {
 
     @Test(priority = 0)
     public void EMI_Package_01() throws Exception {
-
+        MyScreenRecorder.startRecording("");
         ExtentTest test = extent.createTest("EMI_Package_01", "Will also Verify the EMI Plan");
         test.log(Status.INFO, "EMI_Package_01 is Started....");
-
-        MyScreenRecorder.startRecording("");
-
         driver.findElement(By.id("com.continuum.emi.calculator:id/btnStart")).click();
         Thread.sleep(1000);
         driver.findElement(By.id("com.continuum.emi.calculator:id/etLoanAmount")).click();
+        driver.hideKeyboard();
         driver.findElement(By.id("com.continuum.emi.calculator:id/etLoanAmount")).sendKeys("100000");
         driver.findElement(By.id("com.continuum.emi.calculator:id/etInterest")).click();
         driver.findElement(By.id("com.continuum.emi.calculator:id/etInterest")).sendKeys("9.0");
@@ -77,7 +77,6 @@ public class EMI_Calculator_Test extends ExtentReport {
         Assert.assertTrue(Expected_Total_Payment.equalsIgnoreCase(Actual_Total_Payment), "Total_Payable_Amount Mismatch");
         test.log(Status.INFO, "Verification done");
         test.log(Status.INFO, "EMI_Package_01 is passed");
-
         MyScreenRecorder.stopRecording();
 
 
@@ -85,6 +84,7 @@ public class EMI_Calculator_Test extends ExtentReport {
 
     @Test(priority = 1)
     public void EMI_Package_02() throws Exception {
+
         MyScreenRecorder.startRecording("");
         ExtentTest test = extent.createTest("EMI_Package_02", "Will also Verify the EMI Plan");
         test.log(Status.INFO, "EMI_Package_02 is Started....");
@@ -93,6 +93,7 @@ public class EMI_Calculator_Test extends ExtentReport {
         test.log(Status.INFO, "Button Reset done");
         Thread.sleep(1000);
         driver.findElement(By.id("com.continuum.emi.calculator:id/etLoanAmount")).click();
+        driver.hideKeyboard();
         driver.findElement(By.id("com.continuum.emi.calculator:id/etLoanAmount")).sendKeys("325000");
         driver.findElement(By.id("com.continuum.emi.calculator:id/etInterest")).click();
         driver.findElement(By.id("com.continuum.emi.calculator:id/etInterest")).sendKeys("9.5");
@@ -121,7 +122,6 @@ public class EMI_Calculator_Test extends ExtentReport {
         Assert.assertTrue(Expected_Total_Payment.equalsIgnoreCase(Actual_Total_Payment), "Total_Payable_Amount Mismatch");
         test.log(Status.INFO, "Verification done");
         test.log(Status.INFO, "EMI_Package_02 is passed");
-
         MyScreenRecorder.stopRecording();
 
 
@@ -137,6 +137,7 @@ public class EMI_Calculator_Test extends ExtentReport {
         Thread.sleep(1000);
         test.log(Status.INFO, "EButton Reset Done");
         driver.findElement(By.id("com.continuum.emi.calculator:id/etLoanAmount")).click();
+        driver.hideKeyboard();
         driver.findElement(By.id("com.continuum.emi.calculator:id/etLoanAmount")).sendKeys("450000");
         driver.findElement(By.id("com.continuum.emi.calculator:id/etInterest")).click();
         driver.findElement(By.id("com.continuum.emi.calculator:id/etInterest")).sendKeys("11.0");
@@ -159,14 +160,11 @@ public class EMI_Calculator_Test extends ExtentReport {
         String Expected_Processing_Fee = "8,100";
         String Actual_Processing_Fee = driver.findElementById("com.continuum.emi.calculator:id/processing_fee_result").getText();
         Assert.assertTrue(Expected_Processing_Fee.equalsIgnoreCase(Actual_Processing_Fee), "Processing_Fees Amount Mismatch");
-        //Total Payment
-        String Expected_Total_Payment = "647,228.1";
+        //Total Payment Failed (Added an extra 0)
+        String Expected_Total_Payment = "647,228.10";
         String Actual_Total_Payment = driver.findElementById("com.continuum.emi.calculator:id/total_payment_result").getText();
-        Assert.assertTrue(Expected_Total_Payment.equalsIgnoreCase(Actual_Total_Payment), "Total_Payable_Amount Mismatch");
+        Assert.assertTrue(Expected_Total_Payment.equalsIgnoreCase(Actual_Total_Payment), "Total_Payable_Amount is Mismatched");
         test.log(Status.INFO, "EMI_Package_03 is passed");
-
-
-
         MyScreenRecorder.stopRecording();
 
 
